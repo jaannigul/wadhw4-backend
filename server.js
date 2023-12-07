@@ -17,10 +17,7 @@ app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(express.json());  // Parses incoming requests with JSON payloads and is based on body-parser.
 app.use(cookieParser());  // Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
 
-``````````````
-    // Code will go here
 
-    ``````````````
 app.listen(port, () => {
     console.log("Server is listening to port " + port)
 });
