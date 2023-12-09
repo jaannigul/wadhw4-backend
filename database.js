@@ -2,8 +2,8 @@
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: "postgres",
-    password: "Minuparool123",
-    database: "testWad",
+    password: "admin",
+    database: "wadhw",
     host: "localhost",
     port: "5432"
 });
@@ -60,9 +60,11 @@ execute(createTblQueryPosts).then(result => {
   );
 execute(authUser).then(result => {
     if (result) {
-        console.log('Table "posts" is created');
+        console.log('Content is inserted into the table "posts"');
     }
 });
+
+
 
 
 
