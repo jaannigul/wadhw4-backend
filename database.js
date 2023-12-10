@@ -52,7 +52,7 @@ execute(createTblQueryPosts).then(result => {
     }
 });
 
-
+/*
   // SQL query to insert data into the "users" table
   const authUser = pool.query(
     "INSERT INTO posts(content, create_time, username) VALUES ($1, $2, $3)",
@@ -65,6 +65,8 @@ execute(authUser).then(result => {
 });
 
 
+
+ */
 
 
 
