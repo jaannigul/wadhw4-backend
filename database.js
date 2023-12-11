@@ -2,8 +2,8 @@
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: "postgres",
-    password: "admin",
-    database: "wadhw",
+    password: "Minuparool123",
+    database: "testWad",
     host: "localhost",
     port: "5432"
 });
@@ -37,8 +37,7 @@ const createTblQueryPosts = `
         content TEXT,
         image_url TEXT,
         create_time TEXT,
-        user_picture TEXT,
-        username VARCHAR(200)
+        user_picture TEXT
 
     );`;
 execute(createTblQuery).then(result => {
@@ -52,11 +51,11 @@ execute(createTblQueryPosts).then(result => {
     }
 });
 
-/*
+
   // SQL query to insert data into the "users" table
   const authUser = pool.query(
-    "INSERT INTO posts(content, create_time, username) VALUES ($1, $2, $3)",
-    ["lorem ipsum", "2023-11-07", "Mari Maasikas"]
+    "INSERT INTO posts(content, create_time) VALUES ($1, $2)",
+    ["lorem ipsum", "2023-11-07"]
   );
 execute(authUser).then(result => {
     if (result) {
@@ -66,7 +65,7 @@ execute(authUser).then(result => {
 
 
 
- */
+
 
 
 

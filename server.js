@@ -25,6 +25,29 @@ const generateJWT = (id) => {
 app.listen(port, () => {
     console.log("Server is listening to port " + port)
 });
+app.get('/auth/posts', async(req, res) => {
+    try {
+        console.log("get posts request has arrived");
+        const posts = await pool.query(
+            "SELECT * FROM posts"
+        );
+        res.json(posts.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+app.post('/api/posts', async(req, res) => {
+    try {
+        console.log("a post request has arrived");
+        const post = req.body;
+        const newpost = await pool.query(
+            "INSERT INTO posts(content, create_time) values ($1, $2)    RETURNING*", [post.content, post.create_time]
+        );
+        res.json(newpost);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 //check if a user is authenticated
 app.get('/auth/authenticate', async (req, res) => {
     console.log('authentication request has been arrived');
