@@ -36,7 +36,7 @@ app.get('/auth/posts', async(req, res) => {
         console.error(err.message);
     }
 });
-app.post('/api/posts', async(req, res) => {
+app.post('/auth/posts', async(req, res) => {
     try {
         console.log("a post request has arrived");
         const post = req.body;
@@ -44,6 +44,18 @@ app.post('/api/posts', async(req, res) => {
             "INSERT INTO posts(content, create_time) values ($1, $2)    RETURNING*", [post.content, post.create_time]
         );
         res.json(newpost);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+app.delete('/auth/posts', async(req, res) => {
+    try {
+       
+        console.log("delete a post request has arrived");
+        const deletepost = await pool.query(
+            "DELETE FROM posts RETURNING*",
+        );
+        res.json(deletepost);
     } catch (err) {
         console.error(err.message);
     }
