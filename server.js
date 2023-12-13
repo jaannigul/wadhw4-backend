@@ -145,7 +145,7 @@ app.post('/auth/login', async (req, res) => {
         const token = await generateJWT(user.rows[0].id);
         res
             .status(201)
-            .cookie('jwt', token, {maxAge: maxAge, httpOnly: true})
+            .cookie('jwt', token, {maxAge: 6000000, httpOnly: true})
             .json({user_id: user.rows[0].id})
             .send;
     } catch (error) {
