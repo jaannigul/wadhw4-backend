@@ -48,10 +48,10 @@ app.post('/auth/posts', async(req, res) => {
         console.error(err.message);
     }
 });
+// delete all posts
 app.delete('/auth/posts', async(req, res) => {
     try {
-       
-        console.log("delete a post request has arrived");
+        console.log("delete all posts request has arrived");
         const deletepost = await pool.query(
             "DELETE FROM posts RETURNING*",
         );
@@ -60,7 +60,41 @@ app.delete('/auth/posts', async(req, res) => {
         console.error(err.message);
     }
 });
-//check if a user is authenticated
+// saving a single post in certainPostView
+app.put('/auth/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { content } = req.body;
+        const updatedPost = await pool.query('UPDATE posts SET content = $1 WHERE id = $2 RETURNING *', [content, id]);
+        if (updatedPost.rows.length > 0) {
+            res.json(updatedPost.rows[0]);
+        } else {
+            res.status(404).send('Post not found');
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error 2');
+    }
+});
+// delete a single post
+app.delete('/auth/posts/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`delete post request has arrived for post id: ${id}`);
+        const deletepost = await pool.query(
+            "DELETE FROM posts WHERE id = $1 RETURNING*", [id]
+        );
+        if (deletepost.rows.length > 0) {
+            res.json(deletepost.rows[0]);
+        } else {
+            res.status(404).send('Post not found');
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+// check if a user is authenticated
 app.get('/auth/authenticate', async (req, res) => {
     console.log('authentication request has been arrived');
     const token = req.cookies.jwt; // assign the token named jwt to the token const
